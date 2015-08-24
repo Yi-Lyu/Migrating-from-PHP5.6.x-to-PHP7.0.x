@@ -1,7 +1,4 @@
 # PHP 5.6.x 版本迁移至 PHP 7.0.x 版本
-## 写在前面：
-**版权声明**：原文来自[PHP.net](http://php.net/manual/en/migration70.php)，此处仅作翻译。<br/>
-**关于修正**：本人翻译能力有限，若有对原文理解不对或翻译不对的地方，欢迎push。
 ## 目录
 * [向后兼容性说明](./Backward-incompatible-changes.md)
 * [新的特性](./New-features.md)
@@ -26,6 +23,7 @@ PHP7是一个全新的大版本，我们在努力让大家做到无缝的升级�
 这里有一些已经被确定的[不兼容](./Backward-incompatible-changes.md)和[新特性](./New-features.md)，请大家切换生产环境的PHP版本到PHP7之前，这些环节需要特别关注测试。<br>
 这里提供一些其他PHP版本的升级指南：[5.0.x](http://php.net/manual/en/migration5.php) [5.1.x](http://php.net/manual/en/migration51.php) [5.2.x](http://php.net/manual/en/migration52.php) [5.3.x](http://php.net/manual/en/migration53.php) [5.4.x](http://php.net/manual/en/migration54.php) [5.5.x](http://php.net/manual/en/migration55.php) 和 [5.6.x](http://php.net/manual/en/migration56.php)
 
-## 用户贡献说明 
-暂无
+## 关于：
+**版权声明**：原文来自[PHP.net](http://php.net/manual/en/migration70.php)，此处仅作翻译。<br/>
+**关于修正**：本人翻译能力有限，若有对原文理解不对或翻译不对的地方，欢迎push。
 
