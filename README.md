@@ -4,16 +4,16 @@
 **关于修正**：本人翻译能力有限，若有对原文理解不对或翻译不对的地方，欢迎push。
 
 ## 目录
-* [向后兼容性说明][1]
+* [向后兼容性说明](./Backward-incompatible-changes.md)
 * [新的特性](./New-features.md)
 * [SAPI中的改动](./Sapi-changes.md)
 * [7.0.x版本开始停用的特性](./Deprecated.md)
 * [函数变更](./Changed-functions.md)
-* 新的函数
-* 新的类与接口
-* 新的全局常量
-* 被移除的扩展与SAPIs
-* 其他修改
+* [新的函数](http://php.net/manual/en/migration70.new-functions.php)
+* [新的类与接口](http://php.net/manual/en/migration70.classes.php)
+* [新的全局常量](http://php.net/manual/en/migration70.constants.php)
+* [被移除的扩展与SAPIs](http://php.net/manual/en/migration70.removed-exts-sapis.php)
+* [其他修改](http://php.net/manual/en/migration70.other-changes.php)
 
 ## PHP7 依然处于开发中
 ```PHP
@@ -24,14 +24,9 @@
     对你的业务有影响。
 ```
 虽然PHP7是一个全新的大版本，并且我们在努力让大家做到无缝的升级。这次版本变更专注在移除旧特性以保证语言的一致性。<br>
-这里有一些已经被确定的[不兼容][1]和[新特性][3]，请大家切换生产环境的PHP版本到PHP7之前，这些环节需要特别关注测试。<br>
-这里提供一些其他PHP版本的升级指南：[5.0.x][4] [5.1.0][5] [5.2.0][6] …
+这里有一些已经被确定的[不兼容](./Backward-incompatible-changes.md)和[新特性](./New-features.md)，请大家切换生产环境的PHP版本到PHP7之前，这些环节需要特别关注测试。<br>
+这里提供一些其他PHP版本的升级指南：[5.0.x](http://php.net/manual/en/migration5.php) [5.1.x](http://php.net/manual/en/migration51.php) [5.2.x](http://php.net/manual/en/migration52.php) [5.3.x](http://php.net/manual/en/migration53.php) [5.4.x](http://php.net/manual/en/migration54.php) [5.5.x](http://php.net/manual/en/migration55.php) 和 [5.6.x](http://php.net/manual/en/migration56.php)
 
 ## 用户贡献说明 
 暂无
 
-[1]:	./Backward-incompatible-changes.md
-[3]:	b "新特性"
-[4]:	a "5.0.x"
-[5]:	b
-[6]:	v
