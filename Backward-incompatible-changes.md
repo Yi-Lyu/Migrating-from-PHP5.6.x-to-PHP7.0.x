@@ -1,5 +1,5 @@
 # PHP5.6.x版本迁移至7.0.x版本
-## 先后兼容说明
+## 向后兼容说明
 ### 错误和异常处理的变更
 许多的Fatal错误，包括一些可以被修正的Fatal错误，在PHP7中以Exceptions异常对待。这些Error Exceptions继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则继承于异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
 PHP7中详细的Error相关的信息可以参考页面\[ [PHP7错误](http://php.net/manual/en/language.errors.php7.php) \]。本文中仅仅介绍和向后兼容有关的信息如下。
