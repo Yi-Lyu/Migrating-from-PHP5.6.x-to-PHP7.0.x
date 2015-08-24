@@ -8,6 +8,7 @@
 * [新的特性](./New-features.md)
 * [SAPI中的改动](./Sapi-changes.md)
 * [7.0.x版本开始停用的特性](./Deprecated.md)
+* [函数变更](./Changed-functions.md)
 * 新的函数
 * 新的类与接口
 * 新的全局常量
