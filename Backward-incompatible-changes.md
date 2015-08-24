@@ -392,8 +392,8 @@ function foo($a, $b, $unused, $unused) {
 ?>
 ```
 
-#### [\$HTTP_RAW_POST_DATA](http://php.net/manual/en/reserved.variables.httprawpostdata.php) 被移除
-\$HTTP_RAW_POST_DATA 不再被支持。 可以使用 php://input 流数据来代替实现。
+#### [$HTTP_RAW_POST_DATA](http://php.net/manual/en/reserved.variables.httprawpostdata.php) 被移除
+$HTTP_RAW_POST_DATA 不再被支持。 可以使用 php://input 流数据来代替实现。
 
 #### \# 注释已被移除
 INI文件中以\#符号作为注释的内容已被移除，**;**符号将代替**\#**，这个改变同样适用于PHP.ini文件，以及parse_ini_file()和parse_ini_string()处理文件期间。
