@@ -289,3 +289,114 @@ PostScript Type1字体的支持已经从GD扩展删除，涉及的函数有：
 建议使用TrueType字体和其相关的功能代替。
 
 ### 删除INI配置
+#### 删除的功能
+下面的INI指令以及相关的功能被删除：
+* [always_populate_raw_post_data](http://php.net/manual/en/ini.core.php#ini.always-populate-raw-post-data)
+* [asp_tags](http://php.net/manual/en/ini.core.php#ini.asp-tags)
+
+#### xsl.security_prefs
+xsl.security_prefs指令已被删除。相反，该[xsltprocessor::setsecurityprefs\(\)](http://php.net/manual/en/xsltprocessor.setsecurityprefs.php)方法用于控制在每个处理器上的安全选项。
+
+### 其他不向后兼容的变更
+#### [New](http://php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new) 对象不能被引用分配
+[New](http://php.net/manual/en/language.oop5.basic.php#language.oop5.basic.new)语句的结果不再能通过引用赋值给一个变量，如下代码：
+```PHP
+<?php
+class C {}
+$c =& new C;
+?>
+```
+PHP5中的输出：
+```PHP
+Deprecated: Assigning the return value of new by reference is deprecated in /tmp/test.php on line 3
+```
+PHP7中的输出：
+```PHP
+Parse error: syntax error, unexpected 'new' (T_NEW) in /tmp/test.php on line 3
+```
+
+#### 无效的类、接口和特性的名字
+下面的名称不能被用来类、接口、特性的名称：
+* bool
+* int
+* float
+* string
+* NULL
+* TRUE
+* FALSE
+此外，下列名称不应该被使用。虽然他们不会产生在PHP 7中的一个错误，他们是保留供将来使用，应认为已过时。
+* resource
+* object
+* mixed
+* numeric
+
+#### ASP语法标记、Script PHP语法标记被移除
+使用ASP脚本标签，或者Script的PHP代码，已被删除。受影响的标签是：
+![image](https://cloud.githubusercontent.com/assets/1308846/9438212/bdeec078-4a8e-11e5-91b5-5e6b92e4019d.png)
+
+#### 不允许调用不确定的情况
+[之前PHP5.6的过时说明中](http://php.net/manual/en/migration56.deprecated.php#migration56.deprecated.incompatible-context)，静态调用一个非静态方法，会在静态调用中被提示未定义 $this ，并会报错。
+```PHP
+<?php
+class A {
+    public function test() { var_dump($this); }
+}
+
+// Note: Does NOT extend A
+class B {
+    public function callNonStaticMethodOfA() { A::test(); }
+}
+
+(new B)->callNonStaticMethodOfA();
+?>
+```
+在PHP5中会输出：
+```PHP
+Deprecated: Non-static method A::test() should not be called statically, assuming $this from incompatible context in /tmp/test.php on line 8
+object(B)#1 (0) {
+}
+```
+在PHP7中会输出：
+```PHP
+Deprecated: Non-static method A::test() should not be called statically in /tmp/test.php on line 8
+
+Notice: Undefined variable: this in /tmp/test.php on line 3
+NULL
+```
+#### [yield]() 现在开始作为正确的（联想？）算子
+yield 不再需要括号，可以作为一个正确的联想算子优先于 **print** 与 ** => **，这将产生下列行为：
+```PHP
+<?php
+echo yield -1;
+// Was previously interpreted as
+echo (yield) - 1;
+// And is now interpreted as
+echo yield (-1);
+
+yield $foo or die;
+// Was previously interpreted as
+yield ($foo or die);
+// And is now interpreted as
+(yield $foo) or die;
+?>
+```
+括号可以用来消除歧义的情况。
+
+#### 函数不能有多个相同的名称的参数
+不允许函数在参数中出现相同名称的参数。例如下列代码，将会产生 **E_COMPILE_ERROR** 的报错。
+```PHP
+<?php
+function foo($a, $b, $unused, $unused) {
+    //
+}
+?>
+```
+
+#### [\$HTTP_RAW_POST_DATA](http://php.net/manual/en/reserved.variables.httprawpostdata.php) 被移除
+\$HTTP_RAW_POST_DATA 不再被支持。 可以使用 php://input 流数据来代替实现。
+
+#### \# 注释已被移除
+INI文件中以\#符号作为注释的内容已被移除，**;**符号将代替**\#**，这个改变同样适用于PHP.ini文件，以及parse_ini_file()和parse_ini_string()处理文件期间。
+
+## 用户贡献说明
+暂无
