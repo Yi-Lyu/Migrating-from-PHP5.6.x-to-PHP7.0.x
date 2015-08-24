@@ -191,3 +191,101 @@ int(1)
 [non-Traversable](http://php.net/manual/en/class.traversable.php) 对象的遍历与通过引用遍历相似，具有相同的行为特性，[在遍历期间对原数据进行的操作将会被感知](http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.foreach.by-ref)。
 
 ### [整形](http://php.net/manual/en/language.types.integer.php)处理上的调整
+#### 无效的八进制常量
+此前，八进制中包含无效数据会自动被截断（0128被当做为012）。现在，一个无效的八进制字面会造成分析错误。
+
+#### 负位置
+位移的负数将抛出一个 [ArithmeticError](http://php.net/manual/en/class.arithmeticerror.php) 
+```PHP
+<?php
+var_dump(1 >> -1);
+?>
+```
+PHP5中的输出：
+```PHP
+int(0)
+```
+PHP7中的输出：
+```PHP
+Fatal error: Uncaught ArithmeticError: Bit shift by negative number in /tmp/test.php:2
+Stack trace:
+#0 {main}
+  thrown in /tmp/test.php on line 2
+```
+#### 超出范围的位移
+位移（任一方向）超出一个整数的位宽度会得到0。以前，这种转变的行为是依赖于运行环境的机器架构结构。
+
+### [字符串](http://php.net/manual/en/language.types.string.php)处理上的调整
+#### 十六进制字符串不再被认为是数字
+含十六进制字符串不再被认为是数字。例如：
+```PHP
+<?php
+var_dump("0x123" == "291");
+var_dump(is_numeric("0x123"));
+var_dump("0xe" + "0x1");
+var_dump(substr("foo", "0x1"));
+?>
+```
+在PHP5中得输出：
+```PHP
+bool(true)
+bool(true)
+int(15)
+string(2) "oo"
+```
+在PHP7中得输出：
+```PHP
+bool(false)
+bool(false)
+int(0)
+
+Notice: A non well formed numeric value encountered in /tmp/test.php on line 5
+string(3) "foo"
+```
+[filter_var\(\)](http://php.net/manual/en/function.filter-var.php) 函数可以用于检查一个字符串中是否包含十六进制数，同时也可以转换一个字符串为十六进制数。
+```PHP
+<?php
+$str = "0xffff";
+$int = filter_var($str, FILTER_VALIDATE_INT, FILTER_FLAG_ALLOW_HEX);
+if (false === $int) {
+    throw new Exception("Invalid integer!");
+}
+var_dump($int); // int(65535)
+?>
+```
+
+#### \u{ 可能触发错误
+由于新的[Unicode转译语法](http://php.net/manual/en/migration70.new-features.php#migration70.new-features.unicode-codepoint-escape-syntax)，字符串中含有 **\\u{ ** 时会触发Fatal错误。为了避免这一报错，应该避免反斜杠开头。
+
+### 被移除的函数
+#### [call_user_method\(\)](http://php.net/manual/en/function.call-user-method.php) 与 [call_user_method_array\(\)](http://php.net/manual/en/function.call-user-method-array.php)
+这些函数被在PHP4.1.0开始被标记为过时的，在PHP7开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下 [变量函数](http://php.net/manual/en/functions.variable-functions.php)或者其他的选择。
+
+#### [mcrypt](http://php.net/manual/en/book.mcrypt.php) 相关的
+mcrypt_generic_end\(\) 被删除，建议使用 mcrypt_generic_deinit\(\) 。
+此外，废弃的mcrypt_ecb\(\)，mcrypt_cbc\(\)，mcrypt_cfb\(\)和mcrypt_ofb\(\)功能，建议使用目前还支持的mcrypt_decrypt()与适当的MCRYPT_MODE_\*常量。
+
+#### [intl](http://php.net/manual/en/book.intl.php) 相关的
+datefmt_set_timezone_id\(\)与IntlDateFormatter::setTimeZoneID\(\)别名被删除，建议使用datefmt_set_timezone\(\)与IntlDateFormatter::setTimeZone\(\)。
+
+#### [set_magic_quotes_runtime\(\)](http://php.net/manual/en/function.set-magic-quotes-runtime.php)
+set_magic_quotes_runtime\(\)与它的别名函数magic_quotes_runtime\(\)都在PHP7中删除了。他们在PHP5.3.0中就被标记被过时的。
+
+#### [set_socket_blocking\(\)](http://php.net/manual/en/function.set-socket-blocking.php)
+set_socket_blocking\(\)已被移除，建议使用stream_set_blocking\(\)。
+
+#### [dl\(\)](http://php.net/manual/en/function.dl.php) 在PHP-FPM中
+dl\(\)函数不能在PHP-FPM中使用了，它的功能做在了CLI、嵌入到SAPIs中了。
+
+#### [GD](http://php.net/manual/en/book.image.php) 类型的函数
+PostScript Type1字体的支持已经从GD扩展删除，涉及的函数有：
+* imagepsbbox()
+* imagepsencodefont()
+* imagepsextendfont()
+* imagepsfreefont()
+* imagepsloadfont()
+* imagepsslantfont()
+* imagepstext()
+建议使用TrueType字体和其相关的功能代替。
+
+### 删除INI配置
