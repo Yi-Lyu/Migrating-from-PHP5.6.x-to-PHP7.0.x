@@ -2,7 +2,6 @@
 ## 写在前面：
 **版权声明**：原文来自[PHP.net](http://php.net/manual/en/migration70.php)，此处仅作翻译。<br/>
 **关于修正**：本人翻译能力有限，若有对原文理解不对或翻译不对的地方，欢迎push。
-
 ## 目录
 * [向后兼容性说明](./Backward-incompatible-changes.md)
 * [新的特性](./New-features.md)
