@@ -1,7 +1,7 @@
 # PHP5.6.x版本迁移至7.0.x版本
 ## 新的特性
 ### 标量类型声明
-标量类型声明有两种模式：强制（默认）模式、严格模式。下列类型的参数可以被运用（无论用强制模式还是严格模式）：字符串（string）、整形（int）、浮点数（float）和布尔型（bool）。其他类型在PHP5中有支持：类名、接口、数组和可被调用的。
+标量类型声明有两种模式：强制（默认）模式、严格模式。下列参数类型可以使用（无论用强制模式还是严格模式）：字符串（string）、整形（int）、浮点数（float）和布尔型（bool）。其他类型在PHP5中有支持：类名、接口、数组和可被调用的。
 ```PHP
 <?php
 // Coercive mode
@@ -73,7 +73,7 @@ echo 2 <=> 1; // 1
 echo 1.5 <=> 1.5; // 0
 echo 1.5 <=> 2.5; // -1
 echo 2.5 <=> 1.5; // 1
- 
+
 // Strings
 echo "a" <=> "a"; // 0
 echo "a" <=> "b"; // -1
@@ -81,7 +81,7 @@ echo "b" <=> "a"; // 1
 ?>
 ```
 ### 通过define()定义常量数组
-Array类型的常量可以通过define()来定义了。在PHP5.6中仅能通过const定义。
+Array类型的常量可以通过define()来定义。在PHP5.6中仅能通过const定义。
 ```PHP
 <?php
 define('ANIMALS', [
@@ -140,13 +140,11 @@ echo "\u{9999}";
 ```
 上面代码输出：
 ```PHP
-ª
-ª (same as before but with optional leading 0's)
-香
+(same as before but with optional leading 0's)
 ```
 
 ### [Closure::call()](http://php.net/manual/en/closure.call.php)
-[Closure::call()](http://php.net/manual/en/closure.call.php)有着更好的性能，简短干练的暂时绑定一个方法到对象上闭包并调用它。
+闭包[Closure::call()](http://php.net/manual/en/closure.call.php)有着更好的性能，简短干练的暂时绑定一个方法到对象上闭包并调用它。
 ```PHP
 <?php
 class A {private $x = 1;}
@@ -166,7 +164,7 @@ echo $getX->call(new A);
 1
 ```
 
-### 过滤的 unserialize()
+### 为 unserialize() 提供过滤
 这个特性意在提供更安全的方式解包不可靠的数据。通过白名单的方式来防止代码注入。
 ```PHP
 <?php
@@ -198,9 +196,9 @@ bool(true)
 ```
 若要使用此类，请先安装Intl扩展。
 
-### 预期
-预期是向后兼用以增强assert()方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
-在使用老版本API时，如果第一个参数是一个字符串,那么它将被评估。第二个参数可以是一个简单的字符串(导致AssertionError被触发)，或一个自定义异常对象包含一个错误消息。
+### 断言
+断言是向后兼用以增强assert()方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
+在使用老版本API时，如果第一个参数是一个字符串,那么它将被解析。第二个参数可以是一个简单的字符串(导致AssertionError被触发)，或一个包含一个错误消息的自定义异常对象。
 ```PHP
 <?php
 
@@ -214,14 +212,14 @@ assert(false, new CustomError('Some error message'));
 ```PHP
 Fatal error: Uncaught CustomError: Some error message
 ```
-这个特性会带来两个PHP。ini设置(以及它们的默认值): 
+这个特性会带来两个PHP。ini设置(以及它们的默认值):
 * zend.assertions = 1
 * assert.exception = 0
 zend.assertions有三种值：
 * 1 = 生成并且执行代码（开发模式）
 * 0 = 执行代码并且在运行期间跳来跳去
 * -1 = 不生成任何代码 (0开销, 生产模式)
-assert.exception意味着断言失败时抛出异常。默认关闭保持兼容旧的assert()函数。 
+assert.exception意味着断言失败时抛出异常。默认关闭保持兼容旧的assert()函数。
 
 ### 使用use集体声明
 在PHP7之前需要声明一大堆命名空间，但是现在可以通过use的新特性，批量声明。
@@ -247,7 +245,7 @@ use function some\namespace\{fn_a, fn_b, fn_c};
 use const some\namespace\{ConstA, ConstB, ConstC};
 ```
 
-### Generator Return Expressions 
+### Generator Return Expressions
 This feature builds upon the generator functionality introduced into PHP 5.5. It enables for a return statement to be used within a generator to enable for a final expression to be returned (return by reference is not allowed). This value can be fetched using the new Generator::getReturn() method, which may only be used once the generator has finishing yielding values.
 ```PHP
 <?php
@@ -403,4 +401,3 @@ int random_int(int min, int max);
 
 ## 用户贡献记录
 暂无
-
