@@ -60,8 +60,8 @@ $username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
 $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 ?>
 ```
-### 组合比较符（[RFC](https://wiki.php.net/rfc/combined-comparison-operator)）
-组合比较符用于比较两个表达式。它返回一个大于0、等于0、小于0的数，用于表示$a与$b之间的关系。比较的原则是沿用PHP的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
+### 太空船操作符（组合比较符，[RFC](https://wiki.php.net/rfc/combined-comparison-operator)）
+太空船操作符用于比较两个表达式。它返回一个大于0、等于0、小于0的数，用于表示$a与$b之间的关系。比较的原则是沿用PHP的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
 ```PHP
 <?php
 // Integers
@@ -198,8 +198,8 @@ bool(true)
 ```
 若要使用此类，请先安装Intl扩展。
 
-### 预期
-预期是向后兼用以增强assert()方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
+### 预期 （增强的断言）
+预期（增强的断言）是向后兼用以增强assert()方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
 在使用老版本API时，如果第一个参数是一个字符串,那么它将被评估。第二个参数可以是一个简单的字符串(导致AssertionError被触发)，或一个自定义异常对象包含一个错误消息。
 ```PHP
 <?php
