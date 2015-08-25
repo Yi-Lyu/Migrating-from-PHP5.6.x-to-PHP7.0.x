@@ -2,13 +2,13 @@
 ## 向后兼容说明
 ### 错误和异常处理的变更
 许多可以被修正的 Fatal 错误，在 PHP7 中将以 Exceptions 异常的形式抛出。这些 Error Exceptions 继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则实现了异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
-PHP7中详细的Error信息可以参考\[ [PHP7错误](http://php.net/manual/en/language.errors.php7.php) \]。本文中仅仅介绍和向后兼容有关的信息如下。
+PHP7 中详细的 Error 信息可以参考 [PHP7 错误](http://php.net/manual/en/language.errors.php7.php) 。本文中仅仅介绍和向后兼容有关的信息如下。
 
 #### 类构造函数在失败时抛出异常
 之前，类构造函数在失败时总是返回NULL或者返回一个不可用的 Object，但从 PHP7 开始，在构造函数初始化失败时会抛出[异常](http://php.net/manual/en/class.exception.php)。
 
 #### 解析错误时会抛出 [解析异常](http://php.net/manual/en/class.parseerror.php)
-现在，解析[eval\(\)]错误会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。其可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉，并做相应处理。
+现在，解析 [eval\(\)](http://php.net/manual/en/function.eval.php) 错误会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。其可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉，并做相应处理。
 
 #### E_STRICT 等级的报错被重新分配
 所有**E_STRICT**级别的报错已重新分配到其他报错等级中。**E_STRICT** 常量依然保留，所以当你设置报错等级为 **error_reporting\(E_ALL|E_STRICT\)** 时，不会引起报错。<br>
@@ -19,9 +19,9 @@ PHP7中详细的Error信息可以参考\[ [PHP7错误](http://php.net/manual/en/
 由于 PHP7 采用抽象的语法树解析代码文件，并且过去的 PHP 版本无法满足该特性，这一变化将引起一些一致性问题。本节详细介绍这块的情况。
 
 #### 对于间接变量、属性、方法的变动
-间接的使用变量、属性、方法，将严格按照从左到右的顺序执行，而不会因形式问题导致歧义。下表将表明的这一改变引起的差异。
+间接的使用变量、属性、方法，将严格按照从左到右的顺序执行，而不会因形式问题导致歧义。下表将表明这一改变引起的差异。
 ![image](https://cloud.githubusercontent.com/assets/1308846/9435404/1bf947a2-4a7a-11e5-97bb-96677cc560fb.png)
-以上使用老得从右到左的方式的代码，将被重写。通过花括号来明确顺序（见上图中间列），使代码向前兼容PHP7.x，并向后兼容PHP5.x。
+以上使用老的从右到左的方式的代码，将被重写。通过花括号来明确顺序（见上图中间列），使代码向前兼容 PHP7.x，并向后兼容 PHP5.x。
 
 #### 对于 [list\(\)](http://php.net/manual/en/function.list.php) 函数处理上的修改
 ##### [list\(\)](http://php.net/manual/en/function.list.php) 不再按照相反顺序插入元素
@@ -99,7 +99,7 @@ array(2) {
 ```
 
 #### [global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 仅支持简单的变量
-[可变变量](http://php.net/manual/en/language.variables.variable.php)将不能再使用[global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)标记。如果真的需要，可以用花括号来间隔开写，例如下面代码：
+[可变变量](http://php.net/manual/en/language.variables.variable.php)将不能再使用 [global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 标记。如果真的需要，可以用花括号来间隔开写，例如下面代码：
 ```PHP
 <?php
 function f() {
@@ -114,7 +114,7 @@ function f() {
 作为一个基本原则，这样的变量套变量的使用方式，在 [global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 这种场景下不被提倡。
 
 #### 函数参数中的括号不再影响(行为?)
-在 PHP5 中，参数若使被引用的并且使用括号，会没有报错发生。但在 PHP7 开始，这种场景都会引发一个报错。
+在 PHP5 中，函数引用参数如果匹配括号操作，不会触发严格标准警告。但从 PHP7 开始，这种场景都会引发一个警告信息。
 ```PHP
 <?php
 function getArray() {
@@ -166,7 +166,7 @@ int(0)
 当默认使用通过值遍历数组时，[foreach](http://php.net/manual/en/control-structures.foreach.php) 实际操作的是数组的迭代副本，而非数组本身。这就意味着，[foreach](http://php.net/manual/en/control-structures.foreach.php) 中的操作不会修改原数组的值。
 
 #### [foreach](http://php.net/manual/en/control-structures.foreach.php) 通过引用遍历时，有更好的迭代特性
-当使用引用遍历数组时，现在 [foreach](http://php.net/manual/en/control-structures.foreach.php) 在迭代中更好的跟踪变化。例如，在迭代中添加一个迭代值到数组中，例如下面代码：
+当使用引用遍历数组时，现在 [foreach](http://php.net/manual/en/control-structures.foreach.php) 在迭代中能更好的跟踪变化。例如，在迭代中添加一个迭代值到数组中，例如下面代码：
 ```PHP
 <?php
 $array = [0];
@@ -258,23 +258,23 @@ var_dump($int); // int(65535)
 
 ### 被移除的函数
 #### [call_user_method\(\)](http://php.net/manual/en/function.call-user-method.php) 与 [call_user_method_array\(\)](http://php.net/manual/en/function.call-user-method-array.php)
-这些函数被在 PHP4.1.0 开始被标记为过时的，在 PHP7 开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下 [变量函数](http://php.net/manual/en/functions.variable-functions.php)或者参考其他函数。
+这些函数被在 PHP4.1.0 开始被标记为过时的，在 PHP7 开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下[变量函数](http://php.net/manual/en/functions.variable-functions.php)或者参考其他函数。
 
 #### [mcrypt](http://php.net/manual/en/book.mcrypt.php) 相关
-`mcrypt_generic_end()` 被删除，建议使用 `mcrypt_generic_deinit()` 。
-此外，废弃的`mcrypt_ecb()`，`mcrypt_cbc()`，`mcrypt_cfb()` 和 `mcrypt_ofb()` 功能，建议使用目前还支持的 `mcrypt_decrypt()` 与适当的 `MCRYPT_MODE_*` 常量。
+[mcrypt_generic_end\(\)(http://php.net/manual/en/function.mcrypt-generic-end.php) 被删除，建议使用 [mcrypt_generic_deinit\(\)](http://php.net/manual/en/function.mcrypt-generic-deinit.php) 。
+此外，废弃的[mcrypt_ecb\(\)](http://php.net/manual/en/function.mcrypt-ecb.php)，[mcrypt_cbc\(\)](http://php.net/manual/en/function.mcrypt-cbc.php)，[mcrypt_cfb\(\)](http://php.net/manual/en/function.mcrypt-cfb.php) 和 [mcrypt_ofb\(\)](http://php.net/manual/en/function.mcrypt-ofb.php) 功能，建议使用目前还支持的 [mcrypt_decrypt\(\)](http://php.net/manual/en/function.mcrypt-decrypt.php) 与适当的 MCRYPT_MODE_* 常量。
 
 #### [intl](http://php.net/manual/en/book.intl.php) 相关
-`datefmt_set_timezone_id()` 与 `IntlDateFormatter::setTimeZoneID()` 被删除，建议使用 `datefmt_set_timezone()` 与 `IntlDateFormatter::setTimeZone()` 。
+[datefmt_set_timezone_id\(\)](http://php.net/manual/en/intldateformatter.settimezoneid.php) 与 [IntlDateFormatter::setTimeZoneID\(\)](http://php.net/manual/en/intldateformatter.settimezoneid.php) 被删除，建议使用 [datefmt_set_timezone\(\)](http://php.net/manual/en/intldateformatter.settimezone.php) 与 [IntlDateFormatter::setTimeZone\(\)](http://php.net/manual/en/intldateformatter.settimezone.php) 。
 
 #### [set_magic_quotes_runtime\(\)](http://php.net/manual/en/function.set-magic-quotes-runtime.php)
-`set_magic_quotes_runtime()` 与它的别名函数 `magic_quotes_runtime()` 被删除。他们在 PHP5.3.0 中就被标记被过时的。
+[set_magic_quotes_runtime\(\)](http://php.net/manual/en/function.set-magic-quotes-runtime.php) 与它的别名函数 [magic_quotes_runtime\(\)](http://php.net/manual/en/function.magic-quotes-runtime.php) 被删除。他们在 PHP5.3.0 中就被标记被过时的。
 
 #### [set_socket_blocking\(\)](http://php.net/manual/en/function.set-socket-blocking.php)
-`set_socket_blocking()` 已被移除，建议使用 `stream_set_blocking()`。
+[set_socket_blocking\(\)](http://php.net/manual/en/function.set-socket-blocking.php) 已被移除，建议使用 [stream_set_blocking\(\)](http://php.net/manual/en/function.stream-set-blocking.php)。
 
 #### [dl\(\)](http://php.net/manual/en/function.dl.php) 在PHP-FPM中
-`dl()` 函数不能在 PHP-FPM 中使用了，它的功能做在了 CLI、嵌入到 SAPIs 中了。
+[dl\(\)](http://php.net/manual/en/function.dl.php) 函数不能在 PHP-FPM 中使用了，它的功能做在了 CLI、嵌入到 SAPIs 中了。
 
 #### [GD](http://php.net/manual/en/book.image.php) 类型的函数
 PostScript Type1 字体的支持已经从 GD 扩展删除，涉及的函数有：
@@ -324,7 +324,7 @@ Parse error: syntax error, unexpected 'new' (T_NEW) in /tmp/test.php on line 3
 * TRUE
 * FALSE
 
-此外，不推荐下列名称，它们已被标记过时
+此外，不推荐下列名称，它们已被标记为过时
 * resource
 * object
 * mixed
@@ -363,8 +363,8 @@ Deprecated: Non-static method A::test() should not be called statically in /tmp/
 Notice: Undefined variable: this in /tmp/test.php on line 3
 NULL
 ```
-#### [yield]() 现在开始作为(右)关联运算符
-yield 不再需要括号，可以作为一个（右）关联运算符，优先于 **print** 与 ` => `，这将产生下列行为：
+#### [yield](http://php.net/manual/en/language.generators.syntax.php#control-structures.yield) 现在开始作为(右)关联运算符
+[yield](http://php.net/manual/en/language.generators.syntax.php#control-structures.yield) 不再需要括号，可以作为一个（右）关联运算符，优先于 `print` 与 ` => `，这将产生下列行为：
 
 ```PHP
 <?php
@@ -397,7 +397,7 @@ function foo($a, $b, $unused, $unused) {
 `$HTTP_RAW_POST_DATA` 不再被支持。 可以使用 php://input 流数据来代替实现。
 
 #### \# 注释已被移除
-INI 文件中以 \# 符号作为注释的内容已被移除，**;** 符号将代替 **\#**，这个改变同样适用于PHP.ini文件，以及 `parse_ini_file()` 和 `parse_ini_string()` 处理文件期间。
+INI 文件中以 \# 符号作为注释的内容已被移除，**;** 符号将代替 **\#**，这个改变同样适用于 `PHP.ini` 文件，以及 [parse_ini_file\(\)](http://php.net/manual/en/function.parse-ini-file.php) 和 [parse_ini_string\(\)](http://php.net/manual/en/function.parse-ini-string.php) 处理文件期间。
 
 ## 用户贡献说明
 暂无

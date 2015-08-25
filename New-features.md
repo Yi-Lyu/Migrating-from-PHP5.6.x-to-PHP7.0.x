@@ -45,7 +45,7 @@ Array
 详细的返回值声明相关的文档和示例代码可以查阅[返回值声明](http://php.net/manual/en/functions.returning-values.php#functions.returning-values.type-declaration)文档。
 
 ### NULL合并算子（操作符“??”）
-空合并算子的操作符为 `??` ，已经作为一种语法糖用于日常需求中用于三元表达式，它与isset()同时发生。如果变量存在且不为空，它就会返回对应的值，相反，它返回它的第二个操作数。
+空合并算子的操作符为 `??` ，已经作为一种语法糖用于日常需求中用于三元表达式，它与 isset() 同时发生。如果变量存在且不为空，它就会返回对应的值，相反，它返回它的第二个操作数。
 ```PHP
 <?php
 // Fetches the value of $_GET['user'] and returns 'nobody'
@@ -221,7 +221,7 @@ zend.assertions 有三种值：
 * 0 = 执行代码并且在运行期间跳来跳去
 * -1 = 不生成任何代码 (0开销, 生产模式)
 
-assert.exception意味着断言失败时抛出异常。默认关闭保持兼容旧的assert()函数。
+assert.exception 意味着断言失败时抛出异常。默认关闭保持兼容旧的 assert() 函数。
 
 ### 使用 use 集体声明
 在 PHP7 之前需要声明一大堆命名空间，但是现在可以通过 use 的新特性，批量声明。
@@ -323,7 +323,7 @@ int(3)
 ```
 
 ### session_start() 选项
-该特性给 session_start() 函数提供一些设置能力，当然这些设置可以在PHP.ini中设置。
+该特性给 session_start() 函数提供一些设置能力，当然这些设置可以在 PHP.ini 中设置。
 ```PHP
 <?php
 
