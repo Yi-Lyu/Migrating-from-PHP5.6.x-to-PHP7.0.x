@@ -1,14 +1,13 @@
 # PHP5.6.x版本迁移至7.0.x版本
 ## 向后兼容说明
 ### 错误和异常处理的变更
-许多可以被修正的Fatal错误，在PHP7中将以Exceptions异常的形式抛出。这些Error Exceptions继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则继承于异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
+许多可以被修正的Fatal错误，在PHP7中将以Exceptions异常的形式抛出。这些Error Exceptions继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则实现了异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
 PHP7中详细的Error信息可以参考\[ [PHP7错误](http://php.net/manual/en/language.errors.php7.php) \]。本文中仅仅介绍和向后兼容有关的信息如下。
 
 #### 类构造函数在失败时抛出异常
 之前，类构造函数在失败时总是返回NULL或者返回一个不可用的Object，但从PHP7开始，在构造函数初始化失败时会抛出[异常](http://php.net/manual/en/class.exception.php)。
 
 #### 解析错误时会抛出 [解析异常](http://php.net/manual/en/class.parseerror.php)
-Parser errors now throw a ParseError object. Error handling for eval() should now include a catch block that can handle this error.
 现在，解析[eval\(\)]错误会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。其可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉，并做相应处理。
 
 #### E_STRICT 等级的报错被重新分配
@@ -68,7 +67,7 @@ list($x, list(), $y) = $a;
 ```
 
 ##### [list\(\)](http://php.net/manual/en/function.list.php) 函数不再支持拆解字符串
-[list\(\)](http://php.net/manual/en/function.list.php) 不再允许拆解[字符串](http://php.net/manual/en/language.types.string.php)变量为字母，[str_split\(\)](http://php.net/manual/en/function.str-split.php)函数可以用于做此事。
+[list\(\)](http://php.net/manual/en/function.list.php) 不再允许拆解[字符串](http://php.net/manual/en/language.types.string.php)变量为字母，[str_split](http://php.net/manual/en/function.str-split.php)函数可以用于做此事。
 
 #### 在数组中的元素通过引用方式创建时，数组顺序会被改变
 数组中的元素在通过引用方式创建时，其数组顺序会被自动的改变。例如：
@@ -99,8 +98,8 @@ array(2) {
 }
 ```
 
-#### [Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 仅支持简单的变量
-[变量为值的变量](http://php.net/manual/en/language.variables.variable.php)的情况将不能再使用[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)标记。如果真的需要，可以用花括号来间隔开，例如下面代码：
+#### [global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 仅支持简单的变量
+[可变变量](http://php.net/manual/en/language.variables.variable.php)将不能再使用[global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)标记。如果真的需要，可以用花括号来间隔开写，例如下面代码：
 ```PHP
 <?php
 function f() {
@@ -112,7 +111,7 @@ function f() {
 }
 ?>
 ```
-作为一个基本原则，这样的变量套变量的使用方式，在[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)这种场景下不被提倡。
+作为一个基本原则，这样的变量套变量的使用方式，在[global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)这种场景下不被提倡。
 
 #### 函数参数中的括号不再影响(行为?)
 在PHP5中，参数若使被引用的并且使用括号，会没有报错发生。但在PHP7开始，这种场景都会印发一个报错。
@@ -363,13 +362,9 @@ Deprecated: Non-static method A::test() should not be called statically in /tmp/
 Notice: Undefined variable: this in /tmp/test.php on line 3
 NULL
 ```
-<<<<<<< Updated upstream
 #### [yield]() 现在开始作为(右)关联运算符
 yield 不再需要括号，可以作为一个（右）关联运算符，优先于 **print** 与 ** => **，这将产生下列行为：
-=======
-#### [yield]() 现在开始作为正确的内部算子
-yield 不再需要括号，可以作为一个正确的内部算子优先于 **print** 与 ** => **，这将产生下列行为：
->>>>>>> Stashed changes
+
 ```PHP
 <?php
 echo yield -1;
