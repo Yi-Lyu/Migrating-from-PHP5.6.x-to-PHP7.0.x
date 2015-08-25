@@ -189,7 +189,7 @@ int(1)
 #### [non-Traversable](http://php.net/manual/en/class.traversable.php) 对象的遍历
 [non-Traversable](http://php.net/manual/en/class.traversable.php) 对象的遍历与通过引用遍历相似，具有相同的行为特性，[在遍历期间对原数据进行的操作将会被感知](http://php.net/manual/en/migration70.incompatible.php#migration70.incompatible.foreach.by-ref)。
 
-### [整形](http://php.net/manual/en/language.types.integer.php)处理上的调整
+### [整型](http://php.net/manual/en/language.types.integer.php)处理上的调整
 #### 无效的八进制常量
 此前，八进制中包含无效数据会自动被截断（0128被当做为012）。现在，一个无效的八进制字面会造成分析错误。
 
