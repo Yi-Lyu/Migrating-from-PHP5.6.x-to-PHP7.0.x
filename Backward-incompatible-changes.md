@@ -1,15 +1,15 @@
 # PHP5.6.x版本迁移至7.0.x版本
 ## 向后兼容说明
 ### 错误和异常处理的变更
-许多的Fatal错误，包括一些可以被修正的Fatal错误，在PHP7中以Exceptions异常对待。这些Error Exceptions继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则继承于异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
-PHP7中详细的Error相关的信息可以参考页面\[ [PHP7错误](http://php.net/manual/en/language.errors.php7.php) \]。本文中仅仅介绍和向后兼容有关的信息如下。
+许多可以被修正的Fatal错误，在PHP7中将以Exceptions异常的形式抛出。这些Error Exceptions继承于 [Error](http://php.net/manual/en/class.error.php) 类。而 [Error](http://php.net/manual/en/class.error.php) 类则继承于异常基类 [Throwable](http://php.net/manual/en/class.throwable.php) 接口。 <br>
+PHP7中详细的Error信息可以参考\[ [PHP7错误](http://php.net/manual/en/language.errors.php7.php) \]。本文中仅仅介绍和向后兼容有关的信息如下。
 
-#### 内部构造函数在失败时抛出异常
-在PHP7之前，类内部的构造函数在失败时总是返回NULL或者返回一个不可用的Object，但此版本开始，在构造函数初始化失败时总是会抛出[异常](http://php.net/manual/en/class.exception.php)。
+#### 类构造函数在失败时抛出异常
+之前，类构造函数在失败时总是返回NULL或者返回一个不可用的Object，但从PHP7开始，在构造函数初始化失败时会抛出[异常](http://php.net/manual/en/class.exception.php)。
 
 #### 解析错误时会抛出 [解析异常](http://php.net/manual/en/class.parseerror.php)
 Parser errors now throw a ParseError object. Error handling for eval() should now include a catch block that can handle this error.
-解析错误，现在开始会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。[eval\(\)](http://php.net/manual/en/function.eval.php) 函数现在开始可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉异常，随之做相应处理。
+现在，解析[eval\(\)]错误会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。其可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉，并做相应处理。
 
 #### E_STRICT 等级的报错被重新分配
 所有**E_STRICT**级别的报错已重新分配到其他报错等级中。**E_STRICT**常量依然保留，所以当你设置报错等级为 **error_reporting\(E_ALL|E_STRICT\)**时，不会引起报错。<br>
@@ -17,12 +17,12 @@ Parser errors now throw a ParseError object. Error handling for eval() should no
 ![image](https://cloud.githubusercontent.com/assets/1308846/9434941/01402560-4a76-11e5-9943-f9f153745030.png)
 
 ### 变量处理环节的变更
-PHP7开始使用一种抽象的语法树来解析PHP代码文件。老版本的PHP因为PHP解析器的局限性是不可能实现这一特性的。但此处的改动引起了一些一致性问题，破坏了向后兼容性。本节详细介绍这块的情况。
+由于PHP7采用抽象的语法树解析代码文件，并且过去的PHP版本无法满足该特性，这一变化将引起一些一致性问题。本节详细介绍这块的情况。
 
-#### 对于间接变量、属性、方法的变动 
-间接的使用变量、属性、方法，现在开始严格按照从左到右的顺序执行，而不是以前混合各种形式产生各种可能。下表表明的这一改变引起的差异。
+#### 对于间接变量、属性、方法的变动
+间接的使用变量、属性、方法，将严格按照从左到右的顺序执行，而不会因形式问题导致歧义。下表将表明的这一改变引起的差异。
 ![image](https://cloud.githubusercontent.com/assets/1308846/9435404/1bf947a2-4a7a-11e5-97bb-96677cc560fb.png)
-这块使用老得从右到左的方式的代码，必须重写了。通过花括号来明确顺序（见上图中间列），以使代码向前兼容PHP7.x，并向后兼容PHP5.x。
+以上使用老得从右到左的方式的代码，将被重写。通过花括号来明确顺序（见上图中间列），使代码向前兼容PHP7.x，并向后兼容PHP5.x。
 
 #### 对于 [list\(\)](http://php.net/manual/en/function.list.php) 函数处理上的修改
 ##### [list\(\)](http://php.net/manual/en/function.list.php) 不再按照相反顺序插入元素
@@ -55,7 +55,7 @@ array(3) {
   int(3)
 }
 ```
-在实际开发中，不建议使用依靠 [list\(\)](http://php.net/manual/en/function.list.php) 函数的参数来做排顺序这一操作，毕竟这样的hack用法在未来还是有可能调整。
+在实际开发中，不建议使用依靠 [list\(\)](http://php.net/manual/en/function.list.php) 函数的参数来做排顺序这一操作，毕竟这样的hack用法在未来依然有可能被调整。
 
 ##### [list\(\)](http://php.net/manual/en/function.list.php) 函数参数不再允许为空
 [list\(\)](http://php.net/manual/en/function.list.php) 构造时不再允许参数为空的情况，下列情况将不再支持！
@@ -100,7 +100,7 @@ array(2) {
 ```
 
 #### [Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global) 仅支持简单的变量
-[变量为值的变量](http://php.net/manual/en/language.variables.variable.php)的情况将不能再使用[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)标记。如果真的需要，可以用花括号来间隔开写，例如下面代码：
+[变量为值的变量](http://php.net/manual/en/language.variables.variable.php)的情况将不能再使用[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)标记。如果真的需要，可以用花括号来间隔开，例如下面代码：
 ```PHP
 <?php
 function f() {
@@ -112,7 +112,7 @@ function f() {
 }
 ?>
 ```
-作为一个基本原则，这样的变量套变量的使用方式，在[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)这种场景下是不被提倡的。
+作为一个基本原则，这样的变量套变量的使用方式，在[Global](http://php.net/manual/en/language.variables.scope.php#language.variables.scope.global)这种场景下不被提倡。
 
 #### 函数参数中的括号不再影响(行为?)
 在PHP5中，参数若使被引用的并且使用括号，会没有报错发生。但在PHP7开始，这种场景都会印发一个报错。
@@ -195,7 +195,7 @@ int(1)
 此前，八进制中包含无效数据会自动被截断（0128被当做为012）。现在，一个无效的八进制字面会造成分析错误。
 
 #### 负位置
-位移的负数将抛出一个 [ArithmeticError](http://php.net/manual/en/class.arithmeticerror.php) 
+位移的负数将抛出一个 [ArithmeticError](http://php.net/manual/en/class.arithmeticerror.php)
 ```PHP
 <?php
 var_dump(1 >> -1);
@@ -259,17 +259,17 @@ var_dump($int); // int(65535)
 
 ### 被移除的函数
 #### [call_user_method\(\)](http://php.net/manual/en/function.call-user-method.php) 与 [call_user_method_array\(\)](http://php.net/manual/en/function.call-user-method-array.php)
-这些函数被在PHP4.1.0开始被标记为过时的，在PHP7开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下 [变量函数](http://php.net/manual/en/functions.variable-functions.php)或者其他的选择。
+这些函数被在PHP4.1.0开始被标记为过时的，在PHP7开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下 [变量函数](http://php.net/manual/en/functions.variable-functions.php)或者参考其他函数。
 
-#### [mcrypt](http://php.net/manual/en/book.mcrypt.php) 相关的
+#### [mcrypt](http://php.net/manual/en/book.mcrypt.php) 相关
 mcrypt_generic_end\(\) 被删除，建议使用 mcrypt_generic_deinit\(\) 。
 此外，废弃的mcrypt_ecb\(\)，mcrypt_cbc\(\)，mcrypt_cfb\(\)和mcrypt_ofb\(\)功能，建议使用目前还支持的mcrypt_decrypt()与适当的MCRYPT_MODE_\*常量。
 
-#### [intl](http://php.net/manual/en/book.intl.php) 相关的
-datefmt_set_timezone_id\(\)与IntlDateFormatter::setTimeZoneID\(\)别名被删除，建议使用datefmt_set_timezone\(\)与IntlDateFormatter::setTimeZone\(\)。
+#### [intl](http://php.net/manual/en/book.intl.php) 相关
+datefmt_set_timezone_id\(\)与IntlDateFormatter::setTimeZoneID\(\)被删除，建议使用datefmt_set_timezone\(\)与IntlDateFormatter::setTimeZone\(\)。
 
 #### [set_magic_quotes_runtime\(\)](http://php.net/manual/en/function.set-magic-quotes-runtime.php)
-set_magic_quotes_runtime\(\)与它的别名函数magic_quotes_runtime\(\)都在PHP7中删除了。他们在PHP5.3.0中就被标记被过时的。
+set_magic_quotes_runtime\(\)与它的别名函数magic_quotes_runtime\(\)被删除。他们在PHP5.3.0中就被标记被过时的。
 
 #### [set_socket_blocking\(\)](http://php.net/manual/en/function.set-socket-blocking.php)
 set_socket_blocking\(\)已被移除，建议使用stream_set_blocking\(\)。
@@ -324,7 +324,7 @@ Parse error: syntax error, unexpected 'new' (T_NEW) in /tmp/test.php on line 3
 * NULL
 * TRUE
 * FALSE
-此外，下列名称不应该被使用。虽然他们不会产生在PHP 7中的一个错误，他们是保留供将来使用，应认为已过时。
+此外，不推荐下列名称，他们已被标记过时
 * resource
 * object
 * mixed
@@ -334,7 +334,7 @@ Parse error: syntax error, unexpected 'new' (T_NEW) in /tmp/test.php on line 3
 使用ASP脚本标签，或者Script的PHP代码，已被删除。受影响的标签是：
 ![image](https://cloud.githubusercontent.com/assets/1308846/9438212/bdeec078-4a8e-11e5-91b5-5e6b92e4019d.png)
 
-#### 不允许调用不确定的情况
+#### 禁止调用不确定的情况
 [之前PHP5.6的过时说明中](http://php.net/manual/en/migration56.deprecated.php#migration56.deprecated.incompatible-context)，静态调用一个非静态方法，会在静态调用中被提示未定义 $this ，并会报错。
 ```PHP
 <?php
@@ -363,8 +363,13 @@ Deprecated: Non-static method A::test() should not be called statically in /tmp/
 Notice: Undefined variable: this in /tmp/test.php on line 3
 NULL
 ```
+<<<<<<< Updated upstream
 #### [yield]() 现在开始作为(右)关联运算符
 yield 不再需要括号，可以作为一个（右）关联运算符，优先于 **print** 与 ** => **，这将产生下列行为：
+=======
+#### [yield]() 现在开始作为正确的内部算子
+yield 不再需要括号，可以作为一个正确的内部算子优先于 **print** 与 ** => **，这将产生下列行为：
+>>>>>>> Stashed changes
 ```PHP
 <?php
 echo yield -1;
