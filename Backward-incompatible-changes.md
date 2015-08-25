@@ -363,8 +363,8 @@ Deprecated: Non-static method A::test() should not be called statically in /tmp/
 Notice: Undefined variable: this in /tmp/test.php on line 3
 NULL
 ```
-#### [yield]() 现在开始作为正确的（联想？）算子
-yield 不再需要括号，可以作为一个正确的联想算子优先于 **print** 与 ** => **，这将产生下列行为：
+#### [yield]() 现在开始作为(右)关联运算符
+yield 不再需要括号，可以作为一个（右）关联运算符，优先于 **print** 与 ** => **，这将产生下列行为：
 ```PHP
 <?php
 echo yield -1;
