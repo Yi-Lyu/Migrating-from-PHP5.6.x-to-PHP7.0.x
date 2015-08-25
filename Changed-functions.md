@@ -5,8 +5,8 @@
 * [dirname()](http://php.net/manual/en/function.dirname.php) 现有第二个参数(depth)可选，基于当前目录获取目录名称深度。
 * [getrusage()](http://php.net/manual/en/function.getrusage.php) 不再支持windows系统
 * [mktime()](http://php.net/manual/en/function.mktime.php) 及 [gmmktime()](http://php.net/manual/en/function.gmmktime.php) 不再接受 is_dst 参数。
-* [preg_replace()](http://php.net/manual/en/function.preg-replace.php) 不再支持 \e (PREG_REPLACE_EVAL). 以 preg_replace_callback() 作为替代。
-* [setlocale()](http://php.net/manual/en/function.setlocale.php) 第一个参数不再接受字符串。必须用LC_*系列常亮代替。
+* [preg_replace()](http://php.net/manual/en/function.preg-replace.php) 不再支持` \e (PREG_REPLACE_EVAL)`. 以 `preg_replace_callback()` 作为替代。
+* [setlocale()](http://php.net/manual/en/function.setlocale.php) 第一个参数不再接受字符串。必须用 `LC_*` 系列常亮代替。
 * exec()、system()、passthru() 函数现在具备空字节保护。
 
 ## 用户贡献记录

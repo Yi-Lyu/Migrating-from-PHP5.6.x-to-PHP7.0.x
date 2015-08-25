@@ -1,7 +1,7 @@
-# PHP5.6.x版本迁移至7.0.x版本
+# PHP5.6.x 版本迁移至 7.0.x 版本
 ## 新的特性
 ### 标量类型声明
-标量类型声明有两种模式：强制（默认）模式、严格模式。下列参数类型可以使用（无论用强制模式还是严格模式）：字符串（string）、整形（int）、浮点数（float）和布尔型（bool）。其他类型在PHP5中有支持：类名、接口、数组和可被调用的。
+标量类型声明有两种模式：强制（默认）模式、严格模式。下列参数类型可以使用（无论用强制模式还是严格模式）：字符串（string）、整形（int）、浮点数（float）和布尔型（bool）。其他类型在 PHP5 中有支持：类名、接口、数组和可被调用的。
 ```PHP
 <?php
 // Coercive mode
@@ -16,11 +16,11 @@ var_dump(sumOfInts(2, '3', 4.1));
 ```PHP
 int(9)
 ```
-当开启严格模式后，一个 [declare](http://php.net/manual/en/control-structures.declare.php) 声明必须置于PHP脚本文件开头，这意味着严格声明标量是基于文件可配的。这个指令不仅影响参数的类型声明，也影响到函数的返回值声明（详见下面的返回值声明）。<br>
+当开启严格模式后，一个 [declare](http://php.net/manual/en/control-structures.declare.php) 声明必须置于 PHP 脚本文件开头，这意味着严格声明标量是基于文件可配的。这个指令不仅影响参数的类型声明，也影响到函数的返回值声明（详见下面的返回值声明）。<br>
 详细的标量类型声明的文档与示例，可以查看[类型声明](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)页面。
 
 ### 返回类型声明
-PHP7新增了返回类型声明，类似于参数类型声明，返回类型声明提前声明了函数返回值的类型。可用的声明类型与参数声明中可用的类型相同。
+PHP7 新增了返回类型声明，类似于参数类型声明，返回类型声明提前声明了函数返回值的类型。可用的声明类型与参数声明中可用的类型相同。
 ```PHP
 <?php
 
@@ -45,7 +45,7 @@ Array
 详细的返回值声明相关的文档和示例代码可以查阅[返回值声明](http://php.net/manual/en/functions.returning-values.php#functions.returning-values.type-declaration)文档。
 
 ### NULL合并算子（操作符“??”）
-空合并算子的操作符为??，已经作为一种语法糖用于日常需求中用于三元表达式，它与isset()同时发生。如果变量存在且不为空，它就会返回对应的值，相反，它返回它的第二个操作数。
+空合并算子的操作符为 `??` ，已经作为一种语法糖用于日常需求中用于三元表达式，它与isset()同时发生。如果变量存在且不为空，它就会返回对应的值，相反，它返回它的第二个操作数。
 ```PHP
 <?php
 // Fetches the value of $_GET['user'] and returns 'nobody'
@@ -61,7 +61,7 @@ $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 ?>
 ```
 ### 太空船操作符（组合比较符，[RFC](https://wiki.php.net/rfc/combined-comparison-operator)）
-太空船操作符用于比较两个表达式。它返回一个大于0、等于0、小于0的数，用于表示$a与$b之间的关系。比较的原则是沿用PHP的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
+太空船操作符用于比较两个表达式。它返回一个大于 0、等于 0、小于 0 的数，用于表示 $a 与 $b 之间的关系。比较的原则是沿用 PHP 的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
 ```PHP
 <?php
 // Integers
@@ -80,8 +80,8 @@ echo "a" <=> "b"; // -1
 echo "b" <=> "a"; // 1
 ?>
 ```
-### 通过define()定义常量数组
-Array类型的常量可以通过define()来定义。在PHP5.6中仅能通过const定义。
+### 通过 define() 定义常量数组
+Array 类型的常量可以通过 define() 来定义。在 PHP5.6 中仅能通过 const 定义。
 ```PHP
 <?php
 define('ANIMALS', [
@@ -95,7 +95,7 @@ echo ANIMALS[1]; // outputs "cat"
 ```
 
 ### 匿名类
-可以通过new关键字初始化一个匿名类。匿名类使用场景与完整的类场景相同。
+可以通过 new 关键字初始化一个匿名类。匿名类使用场景与完整的类场景相同。
 ```PHP
 <?php
 interface Logger {
@@ -131,8 +131,8 @@ object(class@anonymous)#2 (0) {
 ```
 详细文档可以参考[匿名类文档](http://php.net/manual/en/language.oop5.anonymous.php)
 
-### Unicode codepoint转译语法
-通过十六进制内容与双引号组成的字符串生成Unicode codepoint，可以接受任何有效的codepoint，并且开头的0是可以省略的。
+### Unicode codepoint 转译语法
+通过十六进制内容与双引号组成的字符串生成 Unicode codepoint，可以接受任何有效的 codepoint，并且开头的 0 是可以省略的。
 ```PHP
 echo "\u{aa}";
 echo "\u{0000aa}";
@@ -144,7 +144,7 @@ echo "\u{9999}";
 ```
 
 ### [Closure::call()](http://php.net/manual/en/closure.call.php)
-闭包[Closure::call()](http://php.net/manual/en/closure.call.php)有着更好的性能，简短干练的暂时绑定一个方法到对象上闭包并调用它。
+闭包 [Closure::call()](http://php.net/manual/en/closure.call.php) 有着更好的性能，简短干练的暂时绑定一个方法到对象上闭包并调用它。
 ```PHP
 <?php
 class A {private $x = 1;}
@@ -180,7 +180,7 @@ $data = unserialize($foo, ["allowed_classes" => true]);
 ```
 
 ### [IntlChar](http://php.net/manual/en/class.intlchar.php)
-新增加的IntlChar类意在于暴露出更多的ICU功能。类自身定义了许多静态方法用于操作unicode字符。
+新增加的 IntlChar 类意在于暴露出更多的 ICU 功能。类自身定义了许多静态方法用于操作 unicode 字符。
 ```PHP
 <?php
 
@@ -197,8 +197,8 @@ bool(true)
 若要使用此类，请先安装Intl扩展。
 
 ### 预期 （增强的断言）
-预期（增强的断言）是向后兼用以增强assert()方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
-在使用老版本API时，如果第一个参数是一个字符串,那么它将被解析。第二个参数可以是一个简单的字符串(导致AssertionError被触发)，或一个包含一个错误消息的自定义异常对象。
+预期（增强的断言）是向后兼用以增强 assert() 方法。在代码中启用断言为零成本，并且提供抛出特定异常的能力。<br>
+在使用老版本 API 时，如果第一个参数是一个字符串,那么它将被解析。第二个参数可以是一个简单的字符串(导致 AssertionError 被触发)，或一个包含一个错误消息的自定义异常对象。
 ```PHP
 <?php
 
@@ -212,17 +212,19 @@ assert(false, new CustomError('Some error message'));
 ```PHP
 Fatal error: Uncaught CustomError: Some error message
 ```
-这个特性会带来两个PHP。ini设置(以及它们的默认值):
+这个特性会带来两个 PHP.ini 设置(以及它们的默认值):
 * zend.assertions = 1
 * assert.exception = 0
-zend.assertions有三种值：
+
+zend.assertions 有三种值：
 * 1 = 生成并且执行代码（开发模式）
 * 0 = 执行代码并且在运行期间跳来跳去
 * -1 = 不生成任何代码 (0开销, 生产模式)
+
 assert.exception意味着断言失败时抛出异常。默认关闭保持兼容旧的assert()函数。
 
-### 使用use集体声明
-在PHP7之前需要声明一大堆命名空间，但是现在可以通过use的新特性，批量声明。
+### 使用 use 集体声明
+在 PHP7 之前需要声明一大堆命名空间，但是现在可以通过 use 的新特性，批量声明。
 ```PHP
 <?php
 
@@ -308,8 +310,8 @@ echo $gen->getReturn();
 4
 ```
 
-### 通过intdiv()做整除
-intdiv()函数来处理整除，并返回一个整数。
+### 通过 intdiv() 做整除
+intdiv() 函数来处理整除，并返回一个整数。
 ```PHP
 <?php
 
@@ -321,17 +323,17 @@ int(3)
 ```
 
 ### session_start() 选项
-该特性给session_start()函数提供一些设置能力，当然这些设置可以在PHP.ini中设置。
+该特性给 session_start() 函数提供一些设置能力，当然这些设置可以在PHP.ini中设置。
 ```PHP
 <?php
 
 session_start(['cache_limiter' => 'private']); // sets the session.cache_limiter option to private
 ```
-这个特性还引入了一个新的php.ini设置(session.lazy_write)，默认情况下为true，表示改变会话数据只是重写。
+这个特性还引入了一个新的 php.ini 设置( session.lazy_write )，默认情况下为 true，表示改变会话数据只是重写。
 
 ### preg_replace_callback_array() 函数
-这个新功能，当你使用preg_replace_callback()函数时代码更清晰可读。在PHP7之前，每个正则表达式都需要回调（ preg_replace_callback() 函数的第二个参数 ）中来实现功能，这会使流程混乱不可控。<br>
-现在，回调可以通过与正则表达式绑定着写，只需将正则表达式作为key，回调函数作为value。
+这个新功能，当你使用 preg_replace_callback() 函数时代码更清晰可读。在PHP7之前，每个正则表达式都需要回调（ preg_replace_callback() 函数的第二个参数 ）中来实现功能，这会使流程混乱不可控。<br>
+现在，回调可以通过与正则表达式绑定着写，只需将正则表达式作为 key，回调函数作为 value。
 ```PHP
 <?php
 
@@ -390,14 +392,14 @@ preg_replace_callback_array(
 ```
 
 ### [CSPRNG](http://php.net/manual/en/book.csprng.php) 系列函数
-该特性涵盖两个函数，用于生成安全的整形与字符串，主要用于密码场景。它提供了简单的API和平台无关性。
+该特性涵盖两个函数，用于生成安全的整形与字符串，主要用于密码场景。它提供了简单的 API 和平台无关性。
 ```PHP
 string random_bytes(int length);
 int random_int(int min, int max);
 ```
-两个函数在没有足够的随机性时会报E_WARNING错误并且返回false。
+两个函数在没有足够的随机性时会报 E_WARNING 错误并且返回 false。
 
-### list()可以打开对象实现[ArrayAccess](http://php.net/manual/en/class.arrayaccess.php)
+### list() 可以打开对象实现 [ArrayAccess](http://php.net/manual/en/class.arrayaccess.php)
 
 ## 用户贡献记录
 暂无
