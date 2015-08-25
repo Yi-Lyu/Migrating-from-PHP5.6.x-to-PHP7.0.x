@@ -60,8 +60,8 @@ $username = isset($_GET['user']) ? $_GET['user'] : 'nobody';
 $username = $_GET['user'] ?? $_POST['user'] ?? 'nobody';
 ?>
 ```
-### 宇宙飞船操作符（[RFC](https://wiki.php.net/rfc/combined-comparison-operator)）
-宇宙飞船操作符用于比较两个表达式。它返回一个大于0、等于0、小于0的数，用于表示$a与$b之间的关系。比较的原则是沿用PHP的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
+### 组合比较符（[RFC](https://wiki.php.net/rfc/combined-comparison-operator)）
+组合比较符用于比较两个表达式。它返回一个大于0、等于0、小于0的数，用于表示$a与$b之间的关系。比较的原则是沿用PHP的[常规比较规则](http://php.net/manual/en/types.comparisons.php)进行的。
 ```PHP
 <?php
 // Integers
