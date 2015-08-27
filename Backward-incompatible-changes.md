@@ -11,7 +11,7 @@ PHP7 中详细的 Error 信息可以参考 [PHP7 错误](http://php.net/manual/e
 现在，解析 [eval\(\)](http://php.net/manual/en/function.eval.php) 错误会抛出一个 [解析异常](http://php.net/manual/en/class.parseerror.php) 对象。其可以通过 [catch](http://php.net/manual/en/language.exceptions.php#language.exceptions.catch) 捕捉，并做相应处理。
 
 #### E_STRICT 等级的报错被重新分配
-所有**E_STRICT**级别的报错已重新分配到其他报错等级中。**E_STRICT** 常量依然保留，所以当你设置报错等级为 **error_reporting\(E_ALL|E_STRICT\)** 时，不会引起报错。<br>
+所有 **E_STRICT** 级别的报错已重新分配到其他报错等级中。**E_STRICT** 常量依然保留，所以当你设置报错等级为 **error_reporting\(E_ALL|E_STRICT\)** 时，不会引起报错。<br>
 变更情况如下表
 ![image](https://cloud.githubusercontent.com/assets/1308846/9434941/01402560-4a76-11e5-9943-f9f153745030.png)
 
@@ -176,11 +176,11 @@ foreach ($array as &$val) {
 }
 ?>
 ```
-在PHP5 的输出为：
+在 PHP5 的输出为：
 ```PHP
 int(0)
 ```
-在PHP7 的输出为：
+在 PHP7 的输出为：
 ```PHP
 int(0)
 int(1)
