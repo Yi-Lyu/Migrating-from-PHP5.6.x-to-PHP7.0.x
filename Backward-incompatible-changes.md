@@ -261,7 +261,7 @@ var_dump($int); // int(65535)
 这些函数被在 PHP4.1.0 开始被标记为过时的，在 PHP7 开始被删除。建议使用 [call_user_func\(\)](http://php.net/manual/en/function.call-user-func.php) 和 [call_user_func_array\(\)](http://php.net/manual/en/function.call-user-func-array.php) 。你可以考虑下[变量函数](http://php.net/manual/en/functions.variable-functions.php)或者参考其他函数。
 
 #### [mcrypt](http://php.net/manual/en/book.mcrypt.php) 相关
-[mcrypt_generic_end\(\)(http://php.net/manual/en/function.mcrypt-generic-end.php) 被删除，建议使用 [mcrypt_generic_deinit\(\)](http://php.net/manual/en/function.mcrypt-generic-deinit.php) 。
+[mcrypt_generic_end\(\)](http://php.net/manual/en/function.mcrypt-generic-end.php) 被删除，建议使用 [mcrypt_generic_deinit\(\)](http://php.net/manual/en/function.mcrypt-generic-deinit.php) 。
 此外，废弃的[mcrypt_ecb\(\)](http://php.net/manual/en/function.mcrypt-ecb.php)，[mcrypt_cbc\(\)](http://php.net/manual/en/function.mcrypt-cbc.php)，[mcrypt_cfb\(\)](http://php.net/manual/en/function.mcrypt-cfb.php) 和 [mcrypt_ofb\(\)](http://php.net/manual/en/function.mcrypt-ofb.php) 功能，建议使用目前还支持的 [mcrypt_decrypt\(\)](http://php.net/manual/en/function.mcrypt-decrypt.php) 与适当的 MCRYPT_MODE_* 常量。
 
 #### [intl](http://php.net/manual/en/book.intl.php) 相关
