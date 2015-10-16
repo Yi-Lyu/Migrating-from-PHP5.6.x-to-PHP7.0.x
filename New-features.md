@@ -273,8 +273,8 @@ echo $gen->getReturn(), PHP_EOL;
 ```
 给生成器提供一个最终的返回值是一个很有用的特性。因为最终的返回值（获取来自某种形式的协程计算）便于在使用生成器的时候进行特殊处理。这比之前需要不停的去检查是否已经迭代到最终值要方便多了。
 
-### Generator Delegation
-Generator delegation builds upon the ability of being able to return expressions from generators. It does this by using an new syntax of yield from <expr>, where <expr> can be any Traversable object or array. This <expr> will be advanced until no longer valid, and then execution will continue in the calling generator. This feature enables yield statements to be broken down into smaller operations, thereby promoting cleaner code that has greater reusability.
+### 生成器委托
+生成器委托的特性建立在生成器返回值特性基础之上。现在允许生成器使用新的 yield from 语法返回任何实现 Traversable 接口的对象或数组。迭代将继续进行直到结束并返回最终值。这个特性使得迭代可以被分解成多个操作，从而编写出重用性更高、更干净的代码。
 ```PHP
 <?php
 
