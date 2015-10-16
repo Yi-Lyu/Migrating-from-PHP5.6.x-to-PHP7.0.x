@@ -247,8 +247,8 @@ use function some\namespace\{fn_a, fn_b, fn_c};
 use const some\namespace\{ConstA, ConstB, ConstC};
 ```
 
-### Generator Return Expressions
-This feature builds upon the generator functionality introduced into PHP 5.5. It enables for a return statement to be used within a generator to enable for a final expression to be returned (return by reference is not allowed). This value can be fetched using the new Generator::getReturn() method, which may only be used once the generator has finishing yielding values.
+### 生成器返回表达式
+这个特性是建立在 PHP 5.5 的生成器特性之上的。现在允许在生成器中使用 return 语句提供一个最终的返回值（返回引用是不允许的）。这个值可以通过新的方法获取：Generator::getReturn()，但这个方法只能在生成器迭代完成后调用。
 ```PHP
 <?php
 
@@ -271,7 +271,7 @@ echo $gen->getReturn(), PHP_EOL;
 2
 3
 ```
-Being able to explicitly return a final value from a generator is a handy ability to have. This is because it enables for a final value to be returned by a generator (from perhaps some form of coroutine computation) that can be specifically handled by the client code executing the generator. This is far simpler than forcing the client code to firstly check whether the final value has been yielded, and then if so, to handle that value specifically.
+给生成器提供一个最终的返回值是一个很有用的特性。因为最终的返回值（获取来自某种形式的协程计算）便于在使用生成器的时候进行特殊处理。这比之前需要不停的去检查是否已经迭代到最终值要方便多了。
 
 ### Generator Delegation
 Generator delegation builds upon the ability of being able to return expressions from generators. It does this by using an new syntax of yield from <expr>, where <expr> can be any Traversable object or array. This <expr> will be advanced until no longer valid, and then execution will continue in the calling generator. This feature enables yield statements to be broken down into smaller operations, thereby promoting cleaner code that has greater reusability.
