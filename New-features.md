@@ -274,36 +274,29 @@ echo $gen->getReturn(), PHP_EOL;
 给生成器提供一个最终的返回值是一个很有用的特性。因为最终的返回值（获取来自某种形式的协程计算）便于在使用生成器的时候进行特殊处理。这比之前需要不停的去检查是否已经迭代到最终值要方便多了。
 
 ### 生成器委托
-生成器委托的特性建立在生成器返回值特性基础之上。现在允许生成器使用新的 yield from 语法返回任何实现 Traversable 接口的对象或数组。迭代将继续进行直到结束并返回最终值。这个特性使得迭代可以被分解成多个操作，从而编写出重用性更高、更干净的代码。
-```PHP
+生成器可以委托到另一个生成器中。现在允许生成器使用新的 yield from 语法进入任何实现 Traversable 接口的对象或数组中进行迭代。这个特性使得迭代可以被分解成多个操作，从而编写出重用性更高、更干净的代码。
+``` PHP
 <?php
-
 function gen()
 {
     yield 1;
     yield 2;
-
-    return yield from gen2();
+    yield from gen2();
 }
 
 function gen2()
 {
     yield 3;
-
-    return 4;
+    yield 4;
 }
 
-$gen = gen();
-
-foreach ($gen as $val)
+foreach (gen() as $val)
 {
     echo $val, PHP_EOL;
 }
-
-echo $gen->getReturn();
 ```
 上述代码输出：
-```PHP
+``` PHP
 1
 2
 3
